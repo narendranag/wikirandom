@@ -1,13 +1,21 @@
 # src/wikirandom/console.py
 
 import textwrap
+import locale
 
 import click
 import requests
 
 from . import __version__
 
-API_URL = "https://en.wikipedia.org/api/rest_v1/page/random/summary"
+# Get the locale
+current_locale = locale.getlocale()  # e.g., ('en_US', 'UTF-8')
+
+# Extract the language code
+language_code = current_locale[0].split('_')[0]  # e.g., 'en'
+
+# Construct the Wikipedia URL
+API_URL = f"https://{language_code}.wikipedia.org/api/rest_v1/page/random/summary"
 
 @click.command()
 @click.version_option(version=__version__)
